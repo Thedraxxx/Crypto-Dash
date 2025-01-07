@@ -51,7 +51,12 @@
     --tw-contain-paint:  ;
     --tw-contain-style:  ;
   }
-  
+  html,
+:host {
+    text-size-adjust: 100%; /* Modern property */
+    -webkit-text-size-adjust: 100%; /* Fallback for older WebKit-based browsers */
+}
+
   ::backdrop {
     --tw-border-spacing-x: 0;
     --tw-border-spacing-y: 0;
