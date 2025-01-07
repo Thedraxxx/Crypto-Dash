@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-white">
+    <header class="flex items-center h-20 bg-pink-200 w- justify-evenly">
+      <span class="w-20 pr-40 mr-10 text-3xl text-yellow-900">GMOVIES</span>
+      <div id="mid" class="flex mr-10 justify-evenly w-80">
+        <h3 class="si">Home</h3>
+        <h3>All COin</h3>
+        <h3>Favorites</h3>
+      </div>
+      <input
+        type="text"
+        id="search_bar"
+        placeholder="Enter Movie Name..."
+        class="h-10 pl-5 font-semibold text-black text-opacity-50 border border-sky-500 w-80 placeholder:font-bold"
+      />
+      <div id="Login">login</div>
+    </header>
+    <main class="">
+        <div id="container" class="grid grid-cols-3 gap-5 bg-purple-200">
+           
+        </div>
+    </main>
+        <script>
+    async function Currency() {
+        const url = "https://api.coinranking.com/v2/coins"; 
+        const options = {
+            headers: {
+                'x-access-token': 'coinrankingd229860305898fe58588c5ffd67408989e2a344788832335', 
+            },
+        };
+        try{
+            const response = await fetch(url, options);
+       
+        if(!response.ok){
+            console.log(`Error Status: ${response.status}`)
+        }
+        const results = await response.json();
+        console.log(results.data);
+        console.log(results.data.coins);
+       
+        coins = results.data.coins;
+        console.log(coins[0].iconUrl)
+           const container = document.getElementById("container");
+           container.innerHTML = '';
+        coins.forEach((coin) => {
+              const coinDiv = document.createElement('div');
+              coinDiv.className ="bg-pink-300 border border-gray-600 p-4 rounded-lg shadow-md flex flex-col items-cente"
+               //logo
+              const coinLogo = document.createElement('img');
+              const LogoUrl = coin.iconUrl;
+              coinLogo.src = LogoUrl;
+              coinDiv.alt = `${coin.name} Logo`
+              
+              coinLogo.className= "h-10 mb-4";
+              //name
+              const coinname = document.createElement('h3');
+               coinname.textContent = coin.name;
+               coinname.className = "text-lg font-semibold";
+           //value
+           const coinValue = document.createElement('p');
+           coinValue.textContent = ` $ ${parseFloat(coin.price).toFixed(3)}`;
+           coinValue.className = 'text-sm text-gray-600';
+
+         coinDiv.appendChild(coinLogo);
+         coinDiv.appendChild(coinname);
+         coinDiv.appendChild(coinValue);
+        container.appendChild(coinDiv);
+
+            
+        });
+    }
+        
+        catch(error){
+
+            console.log(`Message:${error.message}`);
+        }
+    }
+        Currency();
+
+        </script>
+    </body>
+ 
+</html>
